@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color:#ccc;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 2em;
+            color: #333;
+        }
+        .calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: auto;
+        }
+        .display {
+            font-size: 2em;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            text-align: right;
+            height: 60px;
+            overflow: hidden;
+            word-wrap: break-word;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        button {
+            padding: 20px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 5px;
+            background-color: #d9d9d9;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        button:hover {
+            background-color: #ccc;
+            transform: scale(1.05);
+        }
+        button:active {
+            background-color: #bbb;
+            transform: scale(1);
+        }
+        button.operation {
+            background-color: #f2a33c;
+            color: #fff;
+        }
+        button.equal {
+            background-color: #4caf50;
+            color: #fff;
+            grid-column: span 2;
+        }
+        footer {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">Calculator</div>
+    <div class="calculator">
+        <div class="display" id="display">0</div>
+        <form method="post" id="calculator-form">
+            {% csrf_token %}
+            <input type="hidden" name="expression" id="expression">
+            <div class="buttons">
+                <button type="button" onclick="appendValue('1')">1</button>
+                <button type="button" onclick="appendValue('2')">2</button>
+                <button type="button" onclick="appendValue('3')">3</button>
+                <button type="button" class="operation" onclick="appendValue('+')">+</button>
+                <button type="button" onclick="appendValue('4')">4</button>
+                <button type="button" onclick="appendValue('5')">5</button>
+                <button type="button" onclick="appendValue('6')">6</button>
+                <button type="button" class="operation" onclick="appendValue('-')">-</button>
+                <button type="button" onclick="appendValue('7')">7</button>
+                <button type="button" onclick="appendValue('8')">8</button>
+                <button type="button" onclick="appendValue('9')">9</button>
+                <button type="button" class="operation" onclick="appendValue('*')">*</button>
+                <button type="button" onclick="appendValue('0')">0</button>
+                <button type="button" onclick="appendValue('/')">/</button>
+                <button type="button" onclick="appendValue('(')">(</button>
+                <button type="button" onclick="appendValue(')')">)</button>
+                <button type="button" onclick="clearDisplay()" style="background-color: red; color: white;">C</button>
+                <button type="button" onclick="deleteLastCharacter()" style="background-color: red; color: white;">⌫</button>
+                <button type="button" class="equal" onclick="calculateResult()">=</button>
+            </div>
+        </form>
+    </div>
+    <footer>
+        <div>
+            <span>
+                Copyright &copy;
+                <script>document.write(new Date().getFullYear())</script> Abu Taher Siddiki Adnan.
+            </span>
+        </div>
+    </footer>
+    <script>
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        function appendValue(value) {
+            const display = document.getElementById('display');
+            const expressionInput = document.getElementById('expression');
+            if (display.innerText === '0') {
+                display.innerText = value;
+            } else {
+                display.innerText += value;
+            }
+            expressionInput.value = display.innerText;
+        }
+
+        function deleteLastCharacter() {
+            const display = document.getElementById('display');
+            const expressionInput = document.getElementById('expression');
+            display.innerText = display.innerText.slice(0, -1);
+            if (display.innerText === '') {
+                display.innerText = '0';
+            }
+            expressionInput.value = display.innerText;
+        }
+
+        function clearDisplay() {
+            const display = document.getElementById('display');
+            const expressionInput = document.getElementById('expression');
+            display.innerText = '0';
+            expressionInput.value = '';
+        }
+
+        function calculateResult() {
+            const display = document.getElementById('display');
+            const expressionInput = document.getElementById('expression');
+            const expression = expressionInput.value;
+            const csrftoken = getCookie('csrftoken');
+
+            $.ajax({
+                type: 'POST',
+                url: '',
+                data: {
+                    'expression': expression,
+                    'csrfmiddlewaretoken': csrftoken
+                },
+                success: function(response) {
+                    display.innerText = response.result;
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error occurred:', status, error);
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('.equal').addEventListener('click', calculateResult);
+        });
+    </script>
+</body>
+</html>
