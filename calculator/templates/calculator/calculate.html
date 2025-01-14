@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Calculator</title>
     <style>
@@ -10,39 +11,45 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            height: 80vh;
+            margin: 2px;
         }
+
         .container {
             text-align: center;
             margin-bottom: 20px;
             font-size: 2em;
             color: #333;
         }
+
         .calculator {
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 90vw;
-            max-width: 500px;
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
         }
+
         .display {
-            font-size: 1.8em;
-            margin-bottom: 10px;
+            font-size: 1.5em;
+            margin-bottom: 5px;
             padding: 10px;
             background-color: #f0f0f0;
             border-radius: 5px;
             text-align: right;
-            height: 10vh;
+            height: 100px;
             overflow: hidden;
             word-wrap: break-word;
         }
+
         .buttons {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 10px;
         }
+
         button {
             padding: 15px;
             font-size: 1.2em;
@@ -52,23 +59,28 @@
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
         }
+
         button:hover {
             background-color: #ccc;
             transform: scale(1.05);
         }
+
         button:active {
             background-color: #bbb;
             transform: scale(1);
         }
+
         button.operation {
             background-color: #f2a33c;
             color: #fff;
         }
+
         button.equal {
             background-color: #4caf50;
             color: #fff;
             grid-column: span 2;
         }
+
         footer {
             margin-top: 20px;
             text-align: center;
@@ -79,15 +91,18 @@
             .container {
                 font-size: 1.5em;
             }
+
             .calculator {
-                width: 90vw;
+                width: 90%;
                 padding: 10px;
             }
+
             .display {
-                font-size: 1.5em;
+                font-size: 1.2em;
                 padding: 10px;
                 height: auto;
             }
+
             button {
                 padding: 10px;
                 font-size: 1em;
@@ -96,6 +111,7 @@
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+
 <body>
     <div class="container">Calculator</div>
     <div class="calculator">
@@ -121,13 +137,14 @@
                 <button type="button" onclick="appendValue('(')">(</button>
                 <button type="button" onclick="appendValue(')')">)</button>
                 <button type="button" onclick="clearDisplay()" style="background-color: red; color: white;">C</button>
-                <button type="button" onclick="deleteLastCharacter()" style="background-color: red; color: white;">⌫</button>
+                <button type="button" onclick="deleteLastCharacter()"
+                    style="background-color: red; color: white;">⌫</button>
                 <button type="button" class="equal" onclick="calculateResult()">=</button>
             </div>
         </form>
     </div>
     <footer>
-        <div>
+        <div style="position: fixed; left: 0; bottom: 5px; width: 100%; text-align: center;">
             <span>
                 Copyright &copy;
                 <script>document.write(new Date().getFullYear())</script> Abu Taher Siddiki Adnan.
@@ -191,18 +208,19 @@
                     'expression': expression,
                     'csrfmiddlewaretoken': csrftoken
                 },
-                success: function(response) {
+                success: function (response) {
                     display.innerText = response.result;
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.error('Error occurred:', status, error);
                 }
             });
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             document.querySelector('.equal').addEventListener('click', calculateResult);
         });
     </script>
 </body>
+
 </html>
