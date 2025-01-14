@@ -8,13 +8,14 @@
             background-color: #ccc;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: center;
+            align-items: center;
             height: 100vh;
             margin: 0;
         }
         .container {
             text-align: center;
-            margin-top: 20px;
+            margin-bottom: 20px;
             font-size: 2em;
             color: #333;
         }
@@ -23,18 +24,17 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 80%;
-            max-width: 300px;
-            margin: auto;
+            width: 90vw;
+            max-width: 500px;
         }
         .display {
-            font-size: 2em;
+            font-size: 1.8em;
             margin-bottom: 10px;
             padding: 10px;
             background-color: #f0f0f0;
             border-radius: 5px;
             text-align: right;
-            height: 60px;
+            height: 10vh;
             overflow: hidden;
             word-wrap: break-word;
         }
@@ -44,8 +44,8 @@
             gap: 10px;
         }
         button {
-            padding: 20px;
-            font-size: 1.5em;
+            padding: 15px;
+            font-size: 1.2em;
             border: none;
             border-radius: 5px;
             background-color: #d9d9d9;
@@ -70,7 +70,7 @@
             grid-column: span 2;
         }
         footer {
-            margin-bottom: 20px;
+            margin-top: 20px;
             text-align: center;
             color: #333;
         }
@@ -80,11 +80,17 @@
                 font-size: 1.5em;
             }
             .calculator {
-                width: 95%;
+                width: 90vw;
+                padding: 10px;
+            }
+            .display {
+                font-size: 1.5em;
+                padding: 10px;
+                height: auto;
             }
             button {
-                padding: 15px;
-                font-size: 1.2em;
+                padding: 10px;
+                font-size: 1em;
             }
         }
     </style>
