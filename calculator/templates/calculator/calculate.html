@@ -5,7 +5,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color:#ccc;
+            background-color: #ccc;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -23,7 +23,8 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            width: 80%;
+            max-width: 300px;
             margin: auto;
         }
         .display {
@@ -72,6 +73,19 @@
             margin-bottom: 20px;
             text-align: center;
             color: #333;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                font-size: 1.5em;
+            }
+            .calculator {
+                width: 95%;
+            }
+            button {
+                padding: 15px;
+                font-size: 1.2em;
+            }
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
